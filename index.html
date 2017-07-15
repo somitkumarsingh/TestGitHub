@@ -1,12 +1,135 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<script src="js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<div class="wrapper">
+	<h2 class="first-heading">New Assignment</h2>
+	<!-- <button type="button" onclick="loadDoc()">Change Content</button> -->
+	<select id="intigerId">
+		<option value=''>Select Intiger  Id</option>
+	</select>
+	<button type="button" onclick="gCanvas()">Generate Canvas</button>
+	<div class="gcanvas-box"></div>
+	<div class="canvasId-box">
+		<select id="cId">
+			<option value=''>Canvas ID</option>
+		</select>
+		<select id="cShape">
+			<option>Shape List</option>
+			<option value="Circle">Circle</option>
+			<option value="Square">Square</option>
+			<option value="Rectangle">Rectangle</option>
+		</select>
+		<button type="button" onclick="gShape()">Insert Shape</button>
+	</div>
+	<div class="can-box"></div>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+</div>
 
+<script>
+
+$(document).ready(function(){
+	//get jeson data by ajax
+	//var root = 'https://jsonplaceholder.typicode.com';
+	$.ajax({
+	  type: 'GET',
+	  url: 'https://jsonplaceholder.typicode.com/albums',
+	  data: { get_param: 'value' },
+	  dataType: 'json',
+	  success: function (data) {
+	      //var result = JSON.parse(data);
+	      var ds = '';
+	      for(var i=0; (i < data.length) && ds <= 10 ;i++){
+	       //console.log('id ' + data[i].id + ' userid ' +data[i].userId + ' title '+ data[i].title);
+	        ds = data[i].id;
+	       //alert(ds);
+	        var dj = ds % 2;
+	        if(!dj){
+	            $('#intigerId').append('<option value="'+ds+'">' +ds+ '</option>');
+	           }else{
+	           //console.log(ds);
+	           }
+	      }
+	  }
+	});
+});
+	// generete canvas id
+	function gCanvas(){
+		//var etincrement = '';
+		$('.gcanvas-box canvas').remove();
+		//$('#cId option:first-child').show();
+		$('#cId option').remove();
+		$('#cId').append('<option value="">Canvas ID</option>');
+		var eIntigerId = $('#intigerId').val();
+		//alert(eIntigerId);
+		if(!eIntigerId == '') {
+			for(i = 1; i <= eIntigerId ; i++) {
+				//console.log(i);
+				$('.gcanvas-box').append('<canvas id="canvas'+i+'" class="canvas-div" width="100" height="100">');
+				$('#cId').append('<option value="'+i+'">' +i+ '</option>');
+			}
+		}else{
+			alert('Plz Select Integer Id');
+		}
+	}
+/*insert Shape circle*/
+function circleCanvas(i){
+	var c = document.getElementById("myCanvas"+i);
+	var ctx = c.getContext("2d");
+	ctx.beginPath();
+	ctx.arc(95,50,40,0,2*Math.PI);
+	ctx.stroke();
+}
+
+/*Insert Square shape*/
+function squareCanvas(i){
+	var c = document.getElementById("myCanvas"+i);
+	var ctx = c.getContext("2d");
+	ctx.rect(20,20,150,150);
+	ctx.stroke();
+}
+
+/*Insert Rectangle shape*/
+function rectCanvas(i){
+	var c = document.getElementById("myCanvas"+i);
+	var ctx = c.getContext("2d");
+	ctx.rect(20,20,150,100);
+	ctx.stroke();
+}
+
+function gShape(){
+	//alert(c);
+	var nOfShape = $('#cId').val();
+	//alert(nOfShape);
+	var shapeDesg = $('#cShape').val();
+	$('.can-box canvas').remove();
+	if(nOfShape == '') {
+		alert('plz select first canvas id');
+	}else{
+		if(shapeDesg == 'Circle'){
+			for(i = 1; i <= nOfShape; i++){
+				$('.can-box').append('<canvas id="myCanvas'+i+'" width="200" height="100">');
+				circleCanvas(i);	
+			}
+		}else if(shapeDesg == 'Square') {
+			for(i = 1; i <= nOfShape; i++){
+				$('.can-box').append('<canvas id="myCanvas'+i+'" width="200" height="200">');
+				squareCanvas(i);	
+			}
+			
+		}else if(shapeDesg == 'Rectangle'){
+			for(i = 1; i <= nOfShape; i++){
+				$('.can-box').append('<canvas id="myCanvas'+i+'" width="200" height="150">');
+				rectCanvas(i);	
+			}
+		}else{
+			alert('Please select shape');
+		}
+	}
+	
+}
+</script>
 </body>
 </html>

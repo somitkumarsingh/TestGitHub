@@ -1,0 +1,51 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+.wrapper{
+	margin: 0 auto;
+    display: block;
+    max-width: 1024px;
+    text-align: center;
+}
+.canvas-div{
+	background: #DB4437;
+	color: #fff; 
+	float: left; 
+	margin: 20px; 
+	text-align: center;
+}
+.gcanvas-box{
+	min-height: 150px;
+    clear: both;
+}
+.canvasId-box{
+	margin-bottom: 20px;
+	clear: both;
+}
+.first-heading{
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+select{
+    padding: 10px 12px;
+    font-size: 16px;
+    min-width: 200px;
+    width: 30%;
+}
+button{
+    padding: 10px 10px;
+    margin: 0;
+    border: 1px solid #0c91df;
+    background: #0c91df;
+    font-size: 16px;
+    color: #fff;
+   cursor: pointer;
+}
